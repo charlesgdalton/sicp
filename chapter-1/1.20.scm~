@@ -1,0 +1,40 @@
+(define (gcd a b)
+  (if (= b 0)
+      a
+      (gcd b (remainder a b))))
+
+;(gcd 206 40)
+
+; (gcd 206 40)
+;;(gcd 40 (remainder 206 40))
+;;if
+;;(= (remainder 206 40) 0)
+;;(remainder 206 40) = 6, calculates remainder once returns false
+;;(gcd (remainder 206 40) (remainder 40 (remainder 206 40)))
+;;if
+;;(= (remainder 40 (remainder 206 40)) 0)
+;;(remainder 40 (remainder 206 40) = 4, calculates remainder twice returns false
+;;(gcd (remainder 40 (remainder 206 40)) (remainder (remainder 206 40) (remainder 40 (remainder 206 40))))
+
+(+ 2 3)
+
+
+
+
+
+
+
+
+;;calculates twice, returns 6 = false
+;; (gcd (remainder 206 40) (remainder 40 (remainder 206 40)))
+;; if (= (remainder 40 (remainder 206 40)) 0) calculates twice, returns 4 = false
+;; (gcd (remainder 40 (remainder 206 40)) (remainder (remainder 206 40) (remainder 40 (remainder 206 40))))
+;; if (= (remainder (remainder 206 40) (remainder 40 (remainder 206 40))) 0) calculates 4 times, returns 2 = false
+;;(gcd
+;;  (remainder (remainder 206 40) (remainder 40 (remainder 206 40)))
+;  (remainder (remainder 40 (remainder 206 40)) ((remainder 206 40) (remainder 40 (remainder 206 40)))))
+
+; if (= 
+
+
+

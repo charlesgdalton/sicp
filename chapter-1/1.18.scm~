@@ -1,0 +1,24 @@
+; iterative function for multiplying in terms of adding, doubling, and halving
+
+(define (double x)
+  (+ x x))
+
+(define (halve x)
+  (/ x 2))
+
+(define (even? x)
+  (= 0 (remainder x 2)))
+
+(define (fast-mult x y)
+  (cond ((= x 1) y)
+        ((even? x) (fast-mult (halve x) (double y)))
+	(else (+ y (fast-mult (- x 1) y)))))
+
+(define (fast-exp-iter b n)
+  (exp-iter 1 b n))
+(define (exp-iter a b n)
+  (cond ((= n 0) a)
+	((even? n) (exp-iter a (square b) (halve n)))
+	(else (exp-iter (fast-mult a b) b (- n 1)))))
+  
+(fast-exp-iter 21 38)

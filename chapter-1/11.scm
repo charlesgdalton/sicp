@@ -12,4 +12,5 @@
 
   (try 1 value))
 
-(sqrt 4.0)
+(sqrt 9.0)
+
