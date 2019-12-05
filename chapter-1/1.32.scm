@@ -1,0 +1,37 @@
+;;exercise 1.32-completed!
+
+(define (product term a next b)
+  (if (> a b)
+      1
+      (* (term a)
+	 (product term (next a) next b))))
+
+
+(define (sum term a next b)
+  (if (> a b)
+      0
+      (+ (term a)
+	 (sum term (next a) next b))))
+
+(define (accumulate combiner null-value term a next b)
+  (if (> a b)
+      null-value
+      (combiner (term a)
+		(accumulate combiner null-value term (next a) next b))))
+
+(define (add x y)
+  (+ x y))
+
+(define (identity x) x)
+
+(define (inc x) (+ x 1))
+
+
+(define (accumulate-iter combiner null-value term a next b)
+  (define (iter a combined)
+    (if (> a b)
+	combined
+	(iter (next a) (combiner a combined))))
+  (iter a null-value))
+
+(accumulate-iter add 0 identity 2 inc 6)
