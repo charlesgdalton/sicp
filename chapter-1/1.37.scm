@@ -1,4 +1,4 @@
-;;exercise 1.37-WIP
+;;exercise 1.37-completed!
 
 (define (cont-frac n d k)
   (define (cont-frac-recurse i)
