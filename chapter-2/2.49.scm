@@ -1,4 +1,4 @@
-;;exercise 2.49-WIP
+;;exercise 2.49-completed!
 
 (define (segments->painter segment-list)
   (lambda (frame)
@@ -48,28 +48,38 @@
 (define (end-segment s)
   (cadr s))
 
-(define (frame-base frame)
-  (make-segment (frame-origin frame) (add-vect (frame-origin frame) (frame-edge1 frame))))
-(define (frame-right frame)
-  (make-segment (add-vect (frame-origin frame) (frame-edge1 frame)) (add-vect (frame-origin frame) (add-vect (frame-edge1 frame) (frame-edge2 frame)))))
-(define (frame-top frame)
-  (make-segment (add-vect (frame-origin frame) (frame-edge2 frame)) (add-vect (frame-origin frame) (add-vect (frame-edge1 frame) (frame-edge2 frame)))))
-(define (frame-left frame)
-  (make-segment (frame-origin frame) (add-vect (frame-origin frame) (frame-edge2 frame))))
+(define (bottom-left frame)
+  (frame-origin frame))
+(define (botom-right frame)
+  (add-vect (frame-origin frame) (frame-edge1 frame)))
+(define (top-left frame)
+  (add-vect (frame-origin frame) (frame-edge2 frame)))
+(define (top-right frame)
+  (add-vect (frame-origin frame) (add-vect (frame-edge1 frame) (frame-edge2 frame))))
 
 
 (define (outline-painter frame)
-  (let ((base (frame-base frame))
-	(right (frame-right frame))
-	(top (frame-top frame))
-	(left (frame-left frame)))
+  (let ((base (make-segment (bottom-left frame) (bottom-right frame)))
+	(right (make-segment (bottom-right frame) (top-right frame)))
+	(top (make-segment (top-left frame) (top-right frame)))
+	(left (make-segment (bottom-left frame) (top-left frame))))
     ((segments->painter (list base right top left)) frame)))
 
 (define (x-painter frame)
-  (let ((bottom-left (frame-origin frame))
-	(bottom-right (add-vect (frame-origin-frame) (frame-edge1 frame)))
-	(top-left (add-vect (frame-origin frame) (frame-edge2 frame)))
-	(top-right (add-vect (frame-origin frame) (add-vect (frame-edge1 frame) (frame-edge2 frame)))))
-    (let ((bottom-left-to-top-right (make-segment bottom-left top-right))
-	  (bottom-right-to-top-left (make-segment bottom-right top-left)))
-      ((segments->painter (list bottom-left-to-top-right bottom-right-to-top-left)) frame))))
+  (let ((bottom-left-to-top-right (make-segment (bottom-left frame) (top-right frame)))
+	(bottom-right-to-top-left (make-segment (bottom-right frame) (top-left frame))))
+    ((segments->painter (list bottom-left-to-top-right bottom-right-to-top-left)) frame)))
+
+
+(define (diamond-painter frame)
+  (let ((base-point (scale-vect (add-vect (bottom-left frame) (bottom-right frame)) .5))
+	(right-point (scale-vect (add-vect (bottom-right frame) (top-right frame)) .5))
+	(top-point (scale-vect (add-vect (top-left frame) (top-right frame)) .5))
+	(left-point (scale-vect (add-vect (bottom-left frame) (top-left frame)) .5)))
+    (let ((base-to-right (make-segment base-point right-point))
+	  (right-to-top (make-segment right-point top-point))
+	  (top-to-left (make-segment top-point left-point))
+	  (left-to-base (make-segment left-point base-point)))
+      ((segments->painter (list base-to-right right-to-top top-to-left left-to-base)) frame))))
+
+;;I'm not doing the wave problem. That's
