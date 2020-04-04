@@ -1,4 +1,4 @@
-;;exercise 2.59-WIP
+;;exercise 2.59-complete!
 
 (define (element-of-set? x set)
   (cond ((null? set) false)
