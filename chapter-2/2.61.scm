@@ -1,4 +1,4 @@
-;;exercise 2.61-complete!q
+;;exercise 2.61-complete!
 
 (define (adjoin-set x set)
   (cond ((null? set) (list x))
